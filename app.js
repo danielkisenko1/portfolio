@@ -30,9 +30,10 @@ async function termLine(output, text, cls = 'normal', typingSpeed = 5) {
 document.addEventListener('DOMContentLoaded', () => {
   populateLogin();
   populatePortfolio();
-  el('btn-toggle-panel').addEventListener('click', () =>
-    el('exploit-panel').classList.toggle('open')
-  );
+  el('btn-toggle-panel').addEventListener('click', function() {
+    el('exploit-panel').classList.toggle('open');
+    this.style.display = 'none';
+  });
   el('btn-signin').addEventListener('click', () =>
     el('login-error').classList.remove('hidden')
   );
