@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="page-title">Loading...</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div id="scanlines"      aria-hidden="true"></div>
+  <div id="glitch-overlay" aria-hidden="true"></div>
+
+  <!-- ════════════════════════════════════════════════════════════
+       PAGE 1 — LOGIN
+  ════════════════════════════════════════════════════════════ -->
+  <section id="page-login" class="page active">
+
+    <header class="login-header">
+      <span class="corp-logo"     id="corp-name"></span>
+      <span class="login-version" id="login-subtitle"></span>
+      <span class="login-version" id="login-lastupdated"></span>
+    </header>
+
+    <main class="login-main">
+
+      <!-- Left: cosmetic login form -->
+      <div class="login-card-wrap">
+        <div class="login-card" id="login-card">
+          <h2>Sign In</h2>
+          <p class="login-hint">Enter your credentials to continue</p>
+          <form onsubmit="return false;">
+            <div class="form-group">
+              <label for="login-username">Username</label>
+              <input id="login-username" type="text" autocomplete="off" placeholder="username" />
+            </div>
+            <div class="form-group">
+              <label for="login-password">Password</label>
+              <input id="login-password" type="password" placeholder="password" />
+            </div>
+            <button type="submit" class="btn-primary" id="btn-signin">Sign In</button>
+            <p class="login-error hidden" id="login-error">Incorrect username or password.</p>
+          </form>
+          <p class="forgot-link"><a href="#">Forgot password?</a></p>
+        </div>
+      </div>
+
+      <button class="exploit-panel-tab" id="btn-toggle-panel">SECURITY CONSOLE</button>
+
+      <!-- Right: security audit / exploit panel (drawer) -->
+      <aside class="exploit-panel" id="exploit-panel">
+
+        <div class="exploit-panel-header">
+          <span class="exploit-badge">! AUDIT MODE</span>
+          <span class="exploit-panel-title">Security Console</span>
+        </div>
+
+        <div class="exploit-panel-body">
+          <p class="exploit-desc">Target: <code id="exploit-target-url"></code></p>
+
+          <ul class="vuln-list" aria-label="Detected vulnerabilities">
+            <li class="vuln-item"><span class="vuln-dot crit"></span>Weak password hashing (MD5)</li>
+            <li class="vuln-item"><span class="vuln-dot crit"></span>No brute-force rate limiting</li>
+            <li class="vuln-item"><span class="vuln-dot high"></span>Default admin credentials active</li>
+            <li class="vuln-item"><span class="vuln-dot med"></span>Verbose error messages</li>
+          </ul>
+
+          <button class="btn-exploit" id="btn-exploit-auth">
+            EXPLOIT WEAK AUTH
+          </button>
+        </div>
+
+        <!-- Terminal slides open after button click -->
+        <div class="exploit-terminal" id="exploit-terminal">
+          <div class="terminal-bar">
+            <span class="t-dot tdot-red"></span>
+            <span class="t-dot tdot-yellow"></span>
+            <span class="t-dot tdot-green"></span>
+            <span class="terminal-bar-title">exploit.sh</span>
+          </div>
+          <div class="terminal-output" id="exploit-output"></div>
+        </div>
+
+      </aside>
+    </main>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       PAGE 2 — PORTFOLIO (dashboard, no scroll)
+  ════════════════════════════════════════════════════════════ -->
+  <section id="page-portfolio" class="page">
+
+    <!-- Three-column dashboard -->
+    <div class="dashboard">
+
+      <!-- Col 1: Identity + Chatbot -->
+      <div class="dash-col dash-hero">
+        <p class="section-label">// about</p>
+        <h1 class="hero-name"    id="hero-name"></h1>
+        <p  class="hero-title"   id="hero-title"></p>
+        <p  class="hero-tagline" id="hero-tagline"></p>
+        <div class="hero-links"  id="hero-links"></div>
+        <div id="hero-graphic"></div>
+
+        <!-- Prompt injection chatbot -->
+        <div class="chat-section">
+          <div class="chat-header-row">
+            <p class="section-label" style="margin:0">// prompt_injection</p>
+            <button class="btn-inject-prompt" id="btn-inject-prompt">INJECT PROMPT</button>
+          </div>
+          <div class="chat-messages" id="chat-messages">
+            <div class="chat-msg ai">
+              <span class="chat-sender">ARIA-v2</span>
+              <span class="chat-bubble">Hello. I am ARIA, the AI assistant for this portfolio. How can I help you?</span>
+            </div>
+          </div>
+          <div class="chat-input-row">
+            <span class="chat-input-prompt">&gt;</span>
+            <span class="chat-input-text" id="chat-input-text"></span>
+            <span class="chat-input-cursor">_</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Col 2: SQL + Port scan -->
+      <div class="dash-col dash-sql">
+
+        <!-- SQL injection / profile data -->
+        <p class="section-label">// sql_injection</p>
+
+        <div class="sql-console">
+          <div class="sql-console-bar">
+            <span>Employee ID Search</span>
+            <button class="btn-sql-inject" id="btn-sql-inject">BEGIN SQL INJECTION</button>
+          </div>
+          <div class="employee-search-row">
+            <input type="text" class="employee-id-input" id="employee-id-input"
+                   placeholder="Employee ID" autocomplete="off" />
+            <button class="btn-search" id="btn-search">SEARCH</button>
+          </div>
+        </div>
+
+        <div class="sql-terminal" id="sql-terminal">
+          <div class="sql-output" id="sql-output"></div>
+        </div>
+
+        <div class="sql-data-area">
+          <div class="data-locked" id="data-locked">
+            <p>Data locked. Execute a query to retrieve.</p>
+          </div>
+          <div class="data-unlocked hidden" id="data-unlocked"></div>
+        </div>
+
+        <!-- Network port scan -->
+        <div class="portscan-section">
+          <div class="portscan-header">
+            <p class="section-label" style="margin:0">// network_scan</p>
+            <button class="btn-scan" id="btn-scan">SCAN NETWORK</button>
+          </div>
+          <div class="portscan-terminal open" id="portscan-terminal">
+            <div class="terminal-bar">
+              <span class="t-dot tdot-red"></span>
+              <span class="t-dot tdot-yellow"></span>
+              <span class="t-dot tdot-green"></span>
+              <span class="terminal-bar-title">nmap.sh</span>
+            </div>
+            <div class="terminal-output" id="scan-output">
+              <div class="t-idle-row"><span class="t-idle-prompt">&gt;&nbsp;</span><span class="t-idle-cursor">&#x2588;</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Col 3: locked until network exploit succeeds -->
+      <div class="dash-col dash-work">
+
+        <div class="work-block">
+          <p class="section-label">// volunteering</p>
+          <div class="lockable" id="lockable-vol">
+            <div class="lock-overlay">// RESTRICTED</div>
+            <div id="vol-list" class="locked-list"></div>
+          </div>
+        </div>
+
+        <div class="work-block">
+          <p class="section-label">// projects</p>
+          <div class="lockable" id="lockable-proj">
+            <div class="lock-overlay">// RESTRICTED</div>
+            <div id="proj-grid" class="locked-list"></div>
+          </div>
+        </div>
+
+        <div class="work-block">
+          <p class="section-label">// certifications</p>
+          <div class="lockable" id="lockable-cert">
+            <div class="lock-overlay">// RESTRICTED</div>
+            <div id="cert-list" class="locked-list"></div>
+          </div>
+        </div>
+
+        <div class="work-block">
+          <p class="section-label">// experience</p>
+          <div class="lockable" id="lockable-exp">
+            <div class="lock-overlay">// RESTRICTED</div>
+            <div id="exp-list" class="locked-list"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
