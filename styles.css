@@ -192,6 +192,10 @@ ul { list-style: none; }
   0%, 100% { box-shadow: -4px 0 18px rgba(192,24,24,0.55); background: var(--red); }
   50%       { box-shadow: -12px 0 60px rgba(255,0,0,1), 0 0 40px rgba(255,0,0,0.8); background: #ff1a1a; }
 }
+@keyframes hackBtnPulse {
+  0%, 100% { border-color: rgba(192,24,24,0.35); box-shadow: none; color: var(--green); }
+  50%       { border-color: rgba(255,51,51,0.8); box-shadow: 0 0 10px rgba(255,51,51,0.4); color: #ff4444; }
+}
 .exploit-panel-header {
   display: flex; align-items: center; gap: 0.75rem;
   padding: 1rem 1.5rem; background: var(--bg-raised); border-bottom: 1px solid var(--border); flex-shrink: 0;
@@ -227,6 +231,7 @@ ul { list-style: none; }
   border: 1px solid rgba(255,51,51,0.35); border-radius: 0;
   font-family: var(--mono); font-size: 0.88rem; font-weight: 700; letter-spacing: 0.1em;
   cursor: pointer; transition: all var(--tr); position: relative; overflow: hidden;
+  animation: hackBtnPulse 1.6s ease-in-out infinite;
 }
 .btn-exploit::after {
   content: ''; position: absolute; inset: 0;
@@ -361,6 +366,7 @@ ul { list-style: none; }
   border: 1px solid rgba(192,24,24,0.35); border-radius: 0;
   font-family: var(--mono); font-size: 0.63rem; font-weight: 700; letter-spacing: 0.07em;
   cursor: pointer; transition: all var(--tr);
+  animation: hackBtnPulse 1.6s ease-in-out infinite;
 }
 .btn-scan:hover   { background: rgba(192,24,24,0.2); box-shadow: 0 0 8px rgba(192,24,24,0.2); }
 .btn-scan:disabled { opacity: 0.4; cursor: not-allowed; }
@@ -429,6 +435,7 @@ ul { list-style: none; }
   border-radius: 0;
   font-family: var(--mono); font-size: 0.63rem; font-weight: 700; letter-spacing: 0.07em;
   cursor: pointer; transition: all var(--tr);
+  animation: hackBtnPulse 1.6s ease-in-out infinite;
 }
 .btn-sql-inject:hover { background: rgba(192,24,24,0.2); box-shadow: 0 0 8px rgba(192,24,24,0.2); }
 .btn-sql-inject:disabled { opacity: 0.4; cursor: not-allowed; }
@@ -537,6 +544,7 @@ ul { list-style: none; }
   border: 1px solid rgba(192,24,24,0.35); border-radius: 0;
   font-family: var(--mono); font-size: 0.63rem; font-weight: 700; letter-spacing: 0.07em;
   cursor: pointer; transition: all var(--tr);
+  animation: hackBtnPulse 1.6s ease-in-out infinite;
 }
 .btn-inject-prompt:hover { background: rgba(192,24,24,0.2); box-shadow: 0 0 8px rgba(192,24,24,0.2); }
 .btn-inject-prompt:disabled { opacity: 0.4; cursor: not-allowed; }
